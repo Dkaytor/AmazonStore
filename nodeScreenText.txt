@@ -1,0 +1,38 @@
+Dina@LAPTOP-359F9GTU MINGW64 /c/users/Dina/AmazonStore (master)
+$ node bamazonCustomer.js
+id  product_name                      price
+--  --------------------------------  -----
+1   Assassin's Creed                  29.97
+2   Milk-Bone Hot Dog Treats          8.24
+3   Verses for the Dead               14.99
+4   Neutrogena Ultra Gentle Cleanser  23.43
+5   Echo Dot                          29.99
+6   Tiffany Lamp                      79.99
+7   Jenga                             8.55
+8   Pet Bed                           13.99
+9   Pure 80s                          10.68
+10  Dracula                           9
+
+? What is the id of the product you want to purchase? 1
+? Please enter quantity of product you wish to purchase 25
+We have insufficient quantity to place your order
+? Do you want to continue shopping? Yes
+id  product_name                      price
+--  --------------------------------  -----
+1   Assassin's Creed                  29.97
+2   Milk-Bone Hot Dog Treats          8.24
+3   Verses for the Dead               14.99
+4   Neutrogena Ultra Gentle Cleanser  23.43
+5   Echo Dot                          29.99
+6   Tiffany Lamp                      79.99
+7   Jenga                             8.55
+8   Pet Bed                           13.99
+9   Pure 80s                          10.68
+10  Dracula                           9
+
+? What is the id of the product you want to purchase? 7
+? Please enter quantity of product you wish to purchase 1
+We are placing your order!
+Your cost is $8.55
+? Do you want to continue shopping? No
+Have a good day!
