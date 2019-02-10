@@ -27,7 +27,7 @@ connection.connect(function (err) {
 
 //This function calls out to the sql database to pull in information on certain columns we want the customer to be able to see
 function readProducts() {
-    
+
     connection.query("SELECT id, product_name, price FROM products", function (err, res) {
         if (err) throw err;
         //This is a npm addin to make a better looking table
@@ -65,39 +65,39 @@ function startTransaction() {
             var query = "SELECT * FROM products WHERE ?";
             connection.query(query, { id: checkQuantity.id },
                 function (err, res) {
-                    
-                    for (var i = 0; i < res.length; i++) {
-                        
-                        if (checkQuantity.stock_quantity > res[i].stock_quantity) {
-                            console.log("We have insufficient quantity to place your order");
-                            contShopping();
-                        }
-                        else {
-                            console.log("We are placing your order!");
-                                //This section calculates the cost of the purchase and lets the customer know
-                                var cost = checkQuantity.stock_quantity * res[0].price;                          
-                                console.log("Your cost is $" + parseFloat(cost).toFixed(2));
-                                newQty = res[i].stock_quantity - checkQuantity.stock_quantity;
-                           
-                                //Once the previous function confirms that there is enough stock on hand
-                                //this function then takes the order quantity and subtracts it from the 
-                                //quantity on hand to get the new quanity on hand and updates
-                                //sql with the new stock quantity
-                                var query = connection.query(
-                                "UPDATE products SET stock_quantity = (stock_quantity - ?) WHERE id=?",
-                                [checkQuantity.stock_quantity, checkQuantity.id],
-                                        
-                                function (error) {
-                                    if (error) throw err;
-                                    contShopping();
-                                  
-                                }
-                            );
-                        }
-                        
-                        
+
+
+
+                    if (checkQuantity.stock_quantity > res[0].stock_quantity) {
+                        console.log("We have insufficient quantity to place your order");
+                       
                     }
+                    else {
+                        console.log("We are placing your order!");
+                        //This section calculates the cost of the purchase and lets the customer know
+                        var cost = checkQuantity.stock_quantity * res[0].price;
+                        console.log("Your cost is $" + parseFloat(cost).toFixed(2));
+                        newQty = res[0].stock_quantity - checkQuantity.stock_quantity;
+
+                        //Once the previous function confirms that there is enough stock on hand
+                        //this function then takes the order quantity and subtracts it from the 
+                        //quantity on hand to get the new quanity on hand and updates
+                        //sql with the new stock quantity
+                        var query = connection.query(
+                            "UPDATE products SET stock_quantity = (stock_quantity - ?) WHERE id=?",
+                            [checkQuantity.stock_quantity, checkQuantity.id],
+
+                            function (error) {
+                                if (error) throw err;
+                                
+
+                            }
+                        );
+                    }
+                    contShopping();
+
                 }
+
 
             )
 
@@ -116,18 +116,18 @@ function contShopping() {
             type: "confirm",
             message: "Do you want to continue shopping?",
             name: "id",
-            
-            }
-        
-    ])
-    .then ( function (cont) {
 
-        if (cont.id === true) {
-            readProducts();
         }
-        else {
-            console.log("Have a good day!");
-            connection.end();
-        }
-    })
+
+    ])
+        .then(function (cont) {
+
+            if (cont.id === true) {
+                readProducts();
+            }
+            else {
+                console.log("Have a good day!");
+                connection.end();
+            }
+        })
 }
